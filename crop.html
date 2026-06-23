@@ -382,9 +382,7 @@ const button =
 document.getElementById('recommendBtn');
 
 dropdowns.forEach(dropdown => {
-
     dropdown.addEventListener('change', checkFields);
-
 });
 
 function checkFields(){
@@ -392,31 +390,112 @@ function checkFields(){
     let allFilled = true;
 
     dropdowns.forEach(dropdown => {
-
         if(dropdown.value === ""){
             allFilled = false;
         }
-
     });
 
     if(allFilled){
-
         button.disabled = false;
         button.classList.add('active');
-
     }
     else{
-
         button.disabled = true;
         button.classList.remove('active');
+    }
+}
+
+function average(range){
+
+    let nums =
+    range.replace(/[^\d.-]/g,'')
+         .split('-');
+
+    return (
+        parseFloat(nums[0]) +
+        parseFloat(nums[1])
+    ) / 2;
+}
+
+button.addEventListener('click', async function(){
+
+    const payload = {
+
+        region: dropdowns[0].value,
+        month: dropdowns[1].value,
+        soil_type: dropdowns[2].value,
+        water_availability: dropdowns[3].value,
+
+        temperature_c:
+        average(dropdowns[4].value),
+
+        rainfall_mm:
+        average(dropdowns[5].value),
+
+        soil_moisture_percent:
+        average(dropdowns[6].value),
+
+        field_size_acres:
+        average(dropdowns[7].value)
+
+    };
+
+    try{
+
+        button.innerText =
+        "PREDICTING...";
+
+        const response =
+        await fetch(
+            "https://vasudhad.onrender.com/predict",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify(payload)
+            }
+        );
+
+        const result =
+        await response.json();
+
+        if(result.success){
+
+            document.querySelector(
+                "#result h1"
+            ).innerText =
+            result.crop.toUpperCase();
+
+            document.getElementById(
+                "result"
+            ).style.display =
+            "block";
+
+        }
+        else{
+
+            alert(
+                "Prediction Error"
+            );
+
+            console.log(result.error);
+
+        }
+
+    }
+    catch(error){
+
+        alert(
+            "Unable to connect to AI Server"
+        );
+
+        console.error(error);
 
     }
 
-}
-
-button.addEventListener('click', function(){
-
-    document.getElementById('result').style.display='block';
+    button.innerText =
+    "RECOMMEND CROP";
 
 });
 
