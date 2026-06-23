@@ -7,7 +7,7 @@ import joblib
 app = Flask(__name__)
 CORS(app)
 
-# Load AI model and encoders
+# Load trained AI model
 model = joblib.load("crop_model.pkl")
 encoders = joblib.load("encoders.pkl")
 crop_encoder = joblib.load("crop_encoder.pkl")
@@ -36,24 +36,25 @@ def predict():
             "soil_moisture_percent": float(data["soil_moisture_percent"])
         }])
 
-        # Encode categorical columns
+        # Encode categorical values
         sample["region"] = encoders["region"].transform(sample["region"])
         sample["month"] = encoders["month"].transform(sample["month"])
         sample["soil_type"] = encoders["soil_type"].transform(sample["soil_type"])
         sample["water_availability"] = encoders["water_availability"].transform(sample["water_availability"])
 
-        # Predict crop
+        # Get prediction probabilities
         probabilities = model.predict_proba(sample)[0]
 
-top2_idx = probabilities.argsort()[-2:][::-1]
+        # Get top 2 crops
+        top2_idx = probabilities.argsort()[-2:][::-1]
 
-top2_crops = crop_encoder.inverse_transform(top2_idx)
+        top2_crops = crop_encoder.inverse_transform(top2_idx)
 
-return jsonify({
-    "success": True,
-    "crop1": top2_crops[0],
-    "crop2": top2_crops[1]
-})
+        return jsonify({
+            "success": True,
+            "crop1": top2_crops[0],
+            "crop2": top2_crops[1]
+        })
 
     except Exception as e:
 
