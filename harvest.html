@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Harvest Time Predictor | VASUDHA</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background-image:url('background.png');
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position:center;
+    min-height:100vh;
+    font-family:Arial, Helvetica, sans-serif;
+    padding-bottom:70px;
+}
+
+.back-btn{
+    position:absolute;
+    top:20px;
+    left:20px;
+    text-decoration:none;
+    color:black;
+    font-weight:bold;
+    font-size:18px;
+}
+
+.top-section{
+    text-align:center;
+    padding-top:30px;
+}
+
+.vasudha-title{
+    font-size:72px;
+    font-weight:700;
+    color:#18a9c8;
+}
+
+.vasudha-subtitle{
+    font-size:22px;
+    font-weight:700;
+    color:#18a9c8;
+}
+
+.page-heading{
+    text-align:center;
+    color:white;
+    font-size:32px;
+    font-weight:bold;
+    margin-top:20px;
+}
+
+.page-description{
+    text-align:center;
+    color:white;
+    font-size:18px;
+    margin-top:8px;
+    margin-bottom:20px;
+}
+
+.form-card{
+    width:90%;
+    max-width:950px;
+    margin:25px auto;
+
+    background:rgba(255,255,255,0.12);
+    backdrop-filter:blur(10px);
+
+    border-radius:20px;
+    padding:35px;
+
+    border:1px solid rgba(255,255,255,0.25);
+}
+
+.hero-image{
+    width:100%;
+    max-width:750px;
+    display:block;
+    margin:0 auto 30px auto;
+    border-radius:15px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+label{
+    color:white;
+    font-weight:bold;
+    margin-bottom:8px;
+    display:block;
+}
+
+select{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    background:white;
+}
+
+.button-area{
+    text-align:center;
+    margin-top:30px;
+}
+
+.btn-grad{
+
+    padding:16px 40px;
+
+    border:none;
+    border-radius:10px;
+
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+
+    background:#7f8c8d;
+
+    cursor:not-allowed;
+
+    transition:0.3s;
+}
+
+.btn-grad.active{
+
+    cursor:pointer;
+
+    background-image:
+    linear-gradient(
+        to right,
+        #314755 0%,
+        #26a0da 51%,
+        #314755 100%
+    );
+
+    background-size:200% auto;
+}
+
+.btn-grad.active:hover{
+    background-position:right center;
+}
+
+.result-card{
+
+    display:none;
+
+    margin-top:35px;
+
+    background:rgba(255,255,255,0.18);
+
+    border-radius:15px;
+
+    padding:25px;
+
+    color:white;
+
+    text-align:center;
+}
+
+.result-card h2{
+    margin-bottom:15px;
+}
+
+.result-card h1{
+    margin-bottom:15px;
+}
+
+.result-card p{
+    font-size:18px;
+    margin:10px 0;
+}
+
+.bottom-strip{
+    position:fixed;
+    bottom:0;
+    left:0;
+
+    width:100%;
+
+    background:rgba(255,255,255,0.25);
+    backdrop-filter:blur(10px);
+
+    border-top:1px solid rgba(255,255,255,0.2);
+
+    text-align:center;
+
+    padding:10px;
+
+    color:black;
+
+    font-size:15px;
+    font-weight:500;
+
+    z-index:999;
+}
+
+@media(max-width:768px){
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .vasudha-title{
+        font-size:50px;
+    }
+
+    .page-heading{
+        font-size:26px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<a href="index.html" class="back-btn">← Back</a>
+
+<div class="top-section">
+
+    <div class="vasudha-title">
+        VASUDHA
+    </div>
+
+    <div class="vasudha-subtitle">
+        Future Technology & Smart Systems
+    </div>
+
+</div>
+
+<div class="page-heading">
+    HARVEST TIME PREDICTOR
+</div>
+
+<div class="page-description">
+    Estimate Harvest Duration and Harvest Month
+</div>
+
+<div class="form-card">
+
+    <img
+    src="harvest.jpeg"
+    class="hero-image"
+    alt="Harvest Prediction">
+
+    <div class="form-grid">
+
+        <div>
+            <label>Crop</label>
+            <select class="required-field">
+                <option value="" disabled selected>Select Crop</option>
+                <option>Rice</option>
+                <option>Wheat</option>
+                <option>Maize</option>
+                <option>Cotton</option>
+                <option>Soybean</option>
+                <option>Sugarcane</option>
+                <option>Potato</option>
+                <option>Tomato</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Region</label>
+            <select class="required-field">
+                <option value="" disabled selected>Select Region</option>
+                <option>North India</option>
+                <option>South India</option>
+                <option>East India</option>
+                <option>West India</option>
+                <option>Central India</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Sowing Month</label>
+            <select class="required-field">
+                <option value="" disabled selected>Select Month</option>
+                <option>January</option>
+                <option>February</option>
+                <option>March</option>
+                <option>April</option>
+                <option>May</option>
+                <option>June</option>
+                <option>July</option>
+                <option>August</option>
+                <option>September</option>
+                <option>October</option>
+                <option>November</option>
+                <option>December</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Temperature</label>
+            <select class="required-field">
+                <option value="" disabled selected>Select Temperature</option>
+                <option>15-20°C</option>
+                <option>20-25°C</option>
+                <option>25-30°C</option>
+                <option>30-35°C</option>
+                <option>35-40°C</option>
+            </select>
+        </div>
+
+    </div>
+
+    <div class="button-area">
+
+        <button id="harvestBtn" class="btn-grad" disabled>
+            PREDICT HARVEST TIME
+        </button>
+
+    </div>
+
+    <div class="result-card" id="result">
+
+        <h2>🌱 HARVEST REPORT</h2>
+
+        <p><strong>Crop:</strong> Rice</p>
+
+        <h1>120 Days</h1>
+
+        <p>
+            <strong>Expected Harvest Month:</strong>
+            November
+        </p>
+
+    </div>
+
+</div>
+
+<div class="bottom-strip">
+    AI Powered Agriculture • Future Technology & Smart Systems
+</div>
+
+<script>
+
+const dropdowns =
+document.querySelectorAll('.required-field');
+
+const button =
+document.getElementById('harvestBtn');
+
+dropdowns.forEach(dropdown => {
+
+    dropdown.addEventListener('change', checkFields);
+
+});
+
+function checkFields(){
+
+    let allFilled = true;
+
+    dropdowns.forEach(dropdown => {
+
+        if(dropdown.value === ""){
+            allFilled = false;
+        }
+
+    });
+
+    if(allFilled){
+
+        button.disabled = false;
+        button.classList.add('active');
+
+    }
+    else{
+
+        button.disabled = true;
+        button.classList.remove('active');
+
+    }
+
+}
+
+button.addEventListener('click', function(){
+
+    document.getElementById('result').style.display='block';
+
+});
+
+</script>
+
+</body>
+</html>
+```
