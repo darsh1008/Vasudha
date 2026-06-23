@@ -43,14 +43,17 @@ def predict():
         sample["water_availability"] = encoders["water_availability"].transform(sample["water_availability"])
 
         # Predict crop
-        prediction = model.predict(sample)
+        probabilities = model.predict_proba(sample)[0]
 
-        crop = crop_encoder.inverse_transform(prediction)
+top2_idx = probabilities.argsort()[-2:][::-1]
 
-        return jsonify({
-            "success": True,
-            "crop": crop[0]
-        })
+top2_crops = crop_encoder.inverse_transform(top2_idx)
+
+return jsonify({
+    "success": True,
+    "crop1": top2_crops[0],
+    "crop2": top2_crops[1]
+})
 
     except Exception as e:
 

@@ -361,7 +361,7 @@ select{
 
     <div class="result-card" id="result">
 
-        <h2>🌾 Recommended Crop</h2>
+        <h2>🌾 Recommended Crops</h2>
 
         <h1>WHEAT</h1>
 
@@ -462,11 +462,13 @@ button.addEventListener('click', async function(){
 
         if(result.success){
 
-            document.querySelector(
-                "#result h1"
-            ).innerText =
-            result.crop.toUpperCase();
-
+           document.querySelector("#result h1").innerHTML =
+"Primary Recommendation<br><b>" +
+result.crop1.toUpperCase() +
+"</b><br><br>" +
+"Alternative Recommendation<br><b>" +
+result.crop2.toUpperCase() +
+"</b>";
             document.getElementById(
                 "result"
             ).style.display =
@@ -495,7 +497,7 @@ button.addEventListener('click', async function(){
     }
 
     button.innerText =
-    "RECOMMEND CROP";
+    "RECOMMEND CROPS";
 
 });
 
