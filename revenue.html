@@ -351,6 +351,17 @@ placeholder="Enter Expected Yield">
 
 </div>
 
+<div>
+
+<label>Current Market Price (₹ / Tonne)</label>
+
+<input
+type="number"
+id="marketPrice"
+placeholder="Optional">
+
+</div>
+
 </div>
 
 <div class="button-area">
@@ -457,6 +468,9 @@ button.addEventListener('click',function(){
     parseFloat(
     document.getElementById('yield').value);
 
+    const enteredPrice =
+    document.getElementById('marketPrice').value;
+
     const prices={
 
         "Rice":23000,
@@ -473,17 +487,33 @@ button.addEventListener('click',function(){
     const totalYield=
     fieldSize*yieldPerAcre;
 
+    let finalPrice;
+    let source;
+
+    if(enteredPrice==""){
+
+        finalPrice=prices[crop];
+        source="VASUDHA Average Market Price";
+
+    }
+    else{
+
+        finalPrice=parseFloat(enteredPrice);
+        source="User Entered Market Price";
+
+    }
+
     const revenue=
-    totalYield*prices[crop];
+    totalYield*finalPrice;
 
     document.getElementById('cropName').innerHTML=
 
     "<strong>Crop</strong><br>"+crop;
 
-    document.getElementById('priceUsed').innerHTML=
+    document.getElementById('priceUsed').innerHTML =
 
-    "<strong>Average Market Price Used</strong><br>₹"
-    +prices[crop].toLocaleString('en-IN')
+    "<strong>Price Used</strong><br>₹"
+    +finalPrice.toLocaleString('en-IN')
     +" / Tonne";
 
     document.getElementById('revenueAmount').innerHTML=
