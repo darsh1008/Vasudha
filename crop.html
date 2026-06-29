@@ -155,6 +155,7 @@ select{
 }
 
 .result-card{
+
     display:none;
 
     margin-top:35px;
@@ -163,16 +164,61 @@ select{
 
     border-radius:15px;
 
-    padding:25px;
-
-    color:white;
+    padding:18px;
 
     text-align:center;
+
+    border:1px solid rgba(255,255,255,0.3);
+
+}
+
+.result-card h2{
+
+    color:#003366;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    margin-bottom:20px;
+
+}
+
+.result-card h3{
+
+    color:#003366;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    margin-top:18px;
+
+    margin-bottom:10px;
+
 }
 
 .result-card h1{
-    margin-top:10px;
+
+    color:#008000;
+
+    font-size:36px;
+
+    font-weight:bold;
+
+    margin-bottom:18px;
+
 }
+
+.result-card hr{
+
+    border:none;
+
+    border-top:1px solid rgba(0,51,102,0.2);
+
+    margin:20px 80px;
+
+}	
 
 .bottom-strip{
     position:fixed;
@@ -233,11 +279,11 @@ select{
 </div>
 
 <div class="page-heading">
-    CROP RECOMMENDATION SYSTEM
+    AI CROP RECOMMENDATION
 </div>
 
 <div class="page-description">
-    Helping Farmers Choose the Right Crop
+    AI-Based Smart Crop Recommendation
 </div>
 
 <div class="form-card">
@@ -353,26 +399,33 @@ select{
 
     <div class="button-area">
 
-        <button id="recommendBtn" class="btn-grad" disabled>
-            RECOMMEND CROP
-        </button>
-
-    </div>
-
-    <div class="result-card" id="result">
-
-        <h2>🌾 Recommended Crops</h2>
-
-        <h1>WHEAT</h1>
-
-    </div>
+    <button id="recommendBtn" class="btn-grad" disabled>
+        RECOMMEND CROP
+    </button>
 
 </div>
+
+<div class="result-card" id="result">
+
+    <h2>🌾 Recommended Crops</h2>
+
+    <h3>Best Match</h3>
+
+    <h1 id="crop1"></h1>
+
+    <hr>
+
+    <h3>Second Best Choice</h3>
+
+    <h1 id="crop2"></h1>
+
+</div>
+
+</div> <!-- Closes the form-card -->
 
 <div class="bottom-strip">
     AI Powered Agriculture • Future Technology & Smart Systems
 </div>
-
 <script>
 
 const dropdowns =
@@ -443,7 +496,7 @@ button.addEventListener('click', async function(){
     try{
 
         button.innerText =
-        "PREDICTING...";
+        "PROCESSING...";
 
         const response =
         await fetch(
@@ -462,13 +515,13 @@ button.addEventListener('click', async function(){
 
         if(result.success){
 
-           document.querySelector("#result h1").innerHTML =
-"Primary Recommendation<br><b>" +
-result.crop1.toUpperCase() +
-"</b><br><br>" +
-"Alternative Recommendation<br><b>" +
-result.crop2.toUpperCase() +
-"</b>";
+	document.getElementById("crop1").innerText =
+result.crop1.charAt(0).toUpperCase() +
+result.crop1.slice(1).toLowerCase();
+
+document.getElementById("crop2").innerText =
+result.crop2.charAt(0).toUpperCase() +
+result.crop2.slice(1).toLowerCase();
             document.getElementById(
                 "result"
             ).style.display =
@@ -497,7 +550,7 @@ result.crop2.toUpperCase() +
     }
 
     button.innerText =
-    "RECOMMEND CROPS";
+    "RECOMMEND CROP";
 
 });
 
@@ -505,4 +558,3 @@ result.crop2.toUpperCase() +
 
 </body>
 </html>
-```

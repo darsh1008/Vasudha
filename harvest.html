@@ -163,24 +163,62 @@ select{
 
     border-radius:15px;
 
-    padding:25px;
-
-    color:white;
+    padding:18px;
 
     text-align:center;
+
+    border:1px solid rgba(255,255,255,0.3);
+
 }
 
 .result-card h2{
-    margin-bottom:15px;
+
+    color:#003366;
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    margin-bottom:20px;
+
 }
 
 .result-card h1{
-    margin-bottom:15px;
+
+    color:#008000;
+
+    font-size:44px;
+
+    font-weight:bold;
+
+    margin:25px 0;
+
 }
 
 .result-card p{
-    font-size:18px;
-    margin:10px 0;
+
+    color:#003366;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    margin:15px 0;
+
+}
+
+.note{
+
+    margin-top:20px;
+
+    font-size:15px;
+
+    color:#444444;
+
+    line-height:1.6;
+
+    font-style:italic;
+
 }
 
 .bottom-strip{
@@ -261,7 +299,7 @@ select{
         <div>
             <label>Crop</label>
             <select class="required-field">
-                <option value="" disabled selected>Select Crop</option>
+                <option value="" disabled selected hidden>Select Crop</option>
                 <option>Rice</option>
                 <option>Wheat</option>
                 <option>Maize</option>
@@ -276,7 +314,7 @@ select{
         <div>
             <label>Region</label>
             <select class="required-field">
-                <option value="" disabled selected>Select Region</option>
+                <option value="" disabled selected hidden>Select Region</option>
                 <option>North India</option>
                 <option>South India</option>
                 <option>East India</option>
@@ -288,7 +326,7 @@ select{
         <div>
             <label>Sowing Month</label>
             <select class="required-field">
-                <option value="" disabled selected>Select Month</option>
+                <option value="" disabled selected hidden>Select Month</option>
                 <option>January</option>
                 <option>February</option>
                 <option>March</option>
@@ -305,16 +343,14 @@ select{
         </div>
 
         <div>
-            <label>Temperature</label>
-            <select class="required-field">
-                <option value="" disabled selected>Select Temperature</option>
-                <option>15-20°C</option>
-                <option>20-25°C</option>
-                <option>25-30°C</option>
-                <option>30-35°C</option>
-                <option>35-40°C</option>
-            </select>
-        </div>
+    	    <label>Water Availability</label>
+   	    <select class="required-field">
+      		<option value="" disabled selected hidden>Select Water Availability</option>
+     		<option>Low</option>
+     		<option>Medium</option>
+     		<option>High</option>
+   	 </select>
+	</div>
 
     </div>
 
@@ -390,7 +426,100 @@ function checkFields(){
 
 button.addEventListener('click', function(){
 
-    document.getElementById('result').style.display='block';
+    const crop =
+    dropdowns[0].value;
+
+    const region =
+    dropdowns[1].value;
+
+    const sowingMonth =
+    dropdowns[2].value;
+
+    const water =
+    dropdowns[3].value;
+
+    const cropDays = {
+
+        "Rice":120,
+        "Wheat":125,
+        "Maize":100,
+        "Cotton":180,
+        "Soybean":105,
+        "Sugarcane":330,
+        "Potato":90,
+        "Tomato":80
+
+    };
+
+    const regionAdjustment = {
+
+        "North India":5,
+        "South India":-5,
+        "East India":0,
+        "West India":3,
+        "Central India":2
+
+    };
+
+    const waterAdjustment = {
+
+        "High":-5,
+        "Medium":0,
+        "Low":10
+
+    };
+
+    const months = [
+
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+
+    ];
+
+    let harvestDays =
+
+        cropDays[crop]
+        +
+        regionAdjustment[region]
+        +
+        waterAdjustment[water];
+
+    let monthIndex =
+    months.indexOf(sowingMonth);
+
+    let harvestMonthIndex =
+    (monthIndex +
+    Math.round(harvestDays / 30))
+    % 12;
+
+    let harvestMonth =
+    months[harvestMonthIndex];
+
+    document.getElementById('result')
+    .style.display = 'block';
+
+    document.querySelector('#result p')
+    .innerHTML =
+    "<strong>Crop:</strong> " + crop;
+
+    document.querySelector('#result h1')
+    .innerText =
+    harvestDays + " Days";
+
+    document.querySelectorAll('#result p')[1]
+    .innerHTML =
+    "<strong>Expected Harvest Month:</strong> "
+    + harvestMonth;
 
 });
 
@@ -398,4 +527,3 @@ button.addEventListener('click', function(){
 
 </body>
 </html>
-```

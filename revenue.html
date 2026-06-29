@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Profit Predictor | VASUDHA</title>
+<title>Revenue Predictor | VASUDHA</title>
 
 <style>
 
@@ -71,13 +71,10 @@ body{
     width:90%;
     max-width:950px;
     margin:25px auto;
-
     background:rgba(255,255,255,0.12);
     backdrop-filter:blur(10px);
-
     border-radius:20px;
     padding:35px;
-
     border:1px solid rgba(255,255,255,0.25);
 }
 
@@ -102,13 +99,15 @@ label{
     display:block;
 }
 
-select{
+select,input{
+
     width:100%;
     padding:12px;
     border:none;
     border-radius:8px;
     font-size:16px;
     background:white;
+
 }
 
 .button-area{
@@ -119,19 +118,15 @@ select{
 .btn-grad{
 
     padding:16px 40px;
-
     border:none;
     border-radius:10px;
-
     color:white;
     font-size:18px;
     font-weight:bold;
-
     background:#7f8c8d;
-
     cursor:not-allowed;
-
     transition:0.3s;
+
 }
 
 .btn-grad.active{
@@ -147,10 +142,13 @@ select{
     );
 
     background-size:200% auto;
+
 }
 
 .btn-grad.active:hover{
+
     background-position:right center;
+
 }
 
 .result-card{
@@ -163,66 +161,107 @@ select{
 
     border-radius:15px;
 
-    padding:25px;
-
-    color:white;
+    padding:18px;
 
     text-align:center;
+
+    border:1px solid rgba(255,255,255,0.3);
+
 }
 
 .result-card h2{
-    margin-bottom:15px;
+
+    color:#003366;
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    margin-bottom:20px;
+
 }
 
 .result-card h1{
-    margin-bottom:15px;
+
+    color:#008000;
+
+    font-size:44px;
+
+    font-weight:bold;
+
+    margin:30px 0;
+
 }
 
 .result-card p{
-    font-size:18px;
-    margin:10px 0;
+
+    color:#003366;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    margin:18px 0;
+
+    line-height:1.5;
+
 }
 
+.note{
+
+    margin-top:25px;
+
+    font-size:16px;
+
+    color:#333333;
+
+    font-style:italic;
+
+    line-height:1.6;
+
+}
 .bottom-strip{
+
     position:fixed;
     bottom:0;
     left:0;
-
     width:100%;
-
     background:rgba(255,255,255,0.25);
     backdrop-filter:blur(10px);
-
     border-top:1px solid rgba(255,255,255,0.2);
-
     text-align:center;
-
     padding:10px;
-
     color:black;
-
     font-size:15px;
     font-weight:500;
-
     z-index:999;
+
 }
 
 @media(max-width:768px){
 
-    .form-grid{
-        grid-template-columns:1fr;
-    }
+.form-grid{
 
-    .vasudha-title{
-        font-size:50px;
-    }
+grid-template-columns:1fr;
 
-    .page-heading{
-        font-size:26px;
-    }
+}
+
+.vasudha-title{
+
+font-size:50px;
+
+}
+
+.page-heading{
+
+font-size:26px;
+
+}
+
 }
 
 </style>
+
 </head>
 
 <body>
@@ -231,170 +270,233 @@ select{
 
 <div class="top-section">
 
-    <div class="vasudha-title">
-        VASUDHA
-    </div>
+<div class="vasudha-title">
 
-    <div class="vasudha-subtitle">
-        Future Technology & Smart Systems
-    </div>
+VASUDHA
+
+</div>
+
+<div class="vasudha-subtitle">
+
+Future Technology & Smart Systems
+
+</div>
 
 </div>
 
 <div class="page-heading">
-    PROFIT PREDICTOR
+
+REVENUE PREDICTOR
+
 </div>
 
 <div class="page-description">
-    Estimate Yield and Revenue
+
+Estimate Agricultural Revenue Using Average Market Prices
+
 </div>
 
 <div class="form-card">
 
-    <img
-    src="revenue.jpeg"
-    class="hero-image"
-    alt="Profit Prediction">
+<img
+src="revenue.jpeg"
+class="hero-image"
+alt="Revenue Predictor">
 
-    <div class="form-grid">
+<div class="form-grid">
 
-        <div>
-            <label>Crop</label>
-            <select class="required-field">
-                <option value="" disabled selected>Select Crop</option>
-                <option>Rice</option>
-                <option>Wheat</option>
-                <option>Maize</option>
-                <option>Cotton</option>
-                <option>Soybean</option>
-                <option>Sugarcane</option>
-                <option>Potato</option>
-                <option>Tomato</option>
-            </select>
-        </div>
+<div>
 
-        <div>
-            <label>Region</label>
-            <select class="required-field">
-                <option value="" disabled selected>Select Region</option>
-                <option>North India</option>
-                <option>South India</option>
-                <option>East India</option>
-                <option>West India</option>
-                <option>Central India</option>
-            </select>
-        </div>
+<label>Crop</label>
 
-        <div>
-            <label>Field Size</label>
-            <select class="required-field">
-                <option value="" disabled selected>Select Field Size</option>
-                <option>0.5-10 Acres</option>
-                <option>10-20 Acres</option>
-                <option>20-30 Acres</option>
-                <option>30-40 Acres</option>
-                <option>40-50 Acres</option>
-            </select>
-        </div>
+<select id="crop" class="required-field">
 
-        <div>
-            <label>Harvest Month</label>
-            <select class="required-field">
-                <option value="" disabled selected>Select Harvest Month</option>
-                <option>January</option>
-                <option>February</option>
-                <option>March</option>
-                <option>April</option>
-                <option>May</option>
-                <option>June</option>
-                <option>July</option>
-                <option>August</option>
-                <option>September</option>
-                <option>October</option>
-                <option>November</option>
-                <option>December</option>
-            </select>
-        </div>
+<option value="" disabled selected hidden>Select Crop</option>
 
-    </div>
+<option>Rice</option>
+<option>Wheat</option>
+<option>Maize</option>
+<option>Cotton</option>
+<option>Soybean</option>
+<option>Sugarcane</option>
+<option>Potato</option>
+<option>Tomato</option>
 
-    <div class="button-area">
+</select>
 
-        <button id="profitBtn" class="btn-grad" disabled>
-            PREDICT REVENUE
-        </button>
+</div>
 
-    </div>
+<div>
 
-    <div class="result-card" id="result">
+<label>Field Size (Acres)</label>
 
-        <h2>💰 PROFIT REPORT</h2>
+<input
+type="number"
+id="field"
+class="required-field"
+placeholder="Enter Field Size">
 
-        <p><strong>Crop:</strong> Rice</p>
+</div>
 
-        <h1>42 Tons</h1>
+<div>
 
-        <p>
-            <strong>Expected Yield</strong>
-        </p>
+<label>Expected Yield (Tonnes / Acre)</label>
 
-        <p>
-            <strong>Estimated Revenue:</strong>
-            ₹8,40,000
-        </p>
+<input
+type="number"
+step="0.1"
+id="yield"
+class="required-field"
+placeholder="Enter Expected Yield">
 
-    </div>
+</div>
+
+</div>
+
+<div class="button-area">
+
+<button
+id="revenueBtn"
+class="btn-grad"
+disabled>
+
+CALCULATE REVENUE
+
+</button>
+
+</div>
+
+<div
+class="result-card"
+id="result">
+
+<h2>
+
+💰 REVENUE ESTIMATION
+
+</h2>
+
+<p id="cropName"></p>
+
+<p id="priceUsed"></p>
+
+<h1 id="revenueAmount"></h1>
+
+<div class="note">
+
+*Revenue is estimated using average market/MSP values.<br>
+Actual income may vary depending on market conditions.
+
+</div>
+
+</div>
 
 </div>
 
 <div class="bottom-strip">
-    AI Powered Agriculture • Future Technology & Smart Systems
+
+AI Powered Agriculture • Future Technology & Smart Systems
+
 </div>
 
 <script>
 
-const dropdowns =
+const fields =
 document.querySelectorAll('.required-field');
 
 const button =
-document.getElementById('profitBtn');
+document.getElementById('revenueBtn');
 
-dropdowns.forEach(dropdown => {
+fields.forEach(field=>{
 
-    dropdown.addEventListener('change', checkFields);
+    field.addEventListener('input',checkFields);
+    field.addEventListener('change',checkFields);
 
 });
 
 function checkFields(){
 
-    let allFilled = true;
+    let filled=true;
 
-    dropdowns.forEach(dropdown => {
+    fields.forEach(field=>{
 
-        if(dropdown.value === ""){
-            allFilled = false;
+        if(field.value==""){
+
+            filled=false;
+
         }
 
     });
 
-    if(allFilled){
+    if(filled){
 
-        button.disabled = false;
+        button.disabled=false;
         button.classList.add('active');
 
     }
+
     else{
 
-        button.disabled = true;
+        button.disabled=true;
         button.classList.remove('active');
 
     }
 
 }
 
-button.addEventListener('click', function(){
+button.addEventListener('click',function(){
 
-    document.getElementById('result').style.display='block';
+    const crop=
+    document.getElementById('crop').value;
+
+    const fieldSize=
+    parseFloat(
+    document.getElementById('field').value);
+
+    const yieldPerAcre=
+    parseFloat(
+    document.getElementById('yield').value);
+
+    const prices={
+
+        "Rice":23000,
+        "Wheat":24000,
+        "Maize":21000,
+        "Cotton":70000,
+        "Soybean":48000,
+        "Sugarcane":3500,
+        "Potato":18000,
+        "Tomato":16000
+
+    };
+
+    const totalYield=
+    fieldSize*yieldPerAcre;
+
+    const revenue=
+    totalYield*prices[crop];
+
+    document.getElementById('cropName').innerHTML=
+
+    "<strong>Crop</strong><br>"+crop;
+
+    document.getElementById('priceUsed').innerHTML=
+
+    "<strong>Average Market Price Used</strong><br>₹"
+    +prices[crop].toLocaleString('en-IN')
+    +" / Tonne";
+
+    document.getElementById('revenueAmount').innerHTML=
+
+    "₹ "+
+    revenue.toLocaleString(
+    'en-IN',
+    {
+        maximumFractionDigits:0
+    });
+
+    document.getElementById('result')
+    .style.display='block';
 
 });
 
@@ -402,4 +504,3 @@ button.addEventListener('click', function(){
 
 </body>
 </html>
-```
